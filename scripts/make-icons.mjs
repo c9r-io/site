@@ -19,6 +19,32 @@ async function rasterise(svg, size) {
   return path.join(work, `${path.basename(svg)}.png`);
 }
 
+async function rasteriseClean(svg, size) {
+  return stripPng(await readFile(await rasterise(svg, size)));
+}
+
+// Quick Look and sips leave EXIF and Adobe XMP behind, and sips writes the
+// pre-crop dimensions into them, so the metadata is both unnecessary and wrong.
+// Keeping only the chunks that carry pixels means the assets say nothing about
+// the machine that produced them. Chunk CRCs are per-chunk, so dropping whole
+// chunks needs no recalculation.
+const KEEP = new Set(['IHDR', 'PLTE', 'tRNS', 'sRGB', 'IDAT', 'IEND']);
+
+function stripPng(png) {
+  const signature = png.subarray(0, 8);
+  const kept = [signature];
+  let at = 8;
+  while (at < png.length) {
+    const length = png.readUInt32BE(at);
+    const type = png.toString('latin1', at + 4, at + 8);
+    const end = at + 12 + length;
+    if (KEEP.has(type)) kept.push(png.subarray(at, end));
+    at = end;
+    if (type === 'IEND') break;
+  }
+  return Buffer.concat(kept);
+}
+
 // ICO with a single embedded PNG frame: understood by every browser that still
 // asks for /favicon.ico, and avoids hand-rolling a BMP encoder.
 function wrapIco(png, size) {
@@ -36,14 +62,16 @@ function wrapIco(png, size) {
 }
 
 const icon = path.join(assets, 'icon.svg');
-await exec('cp', [await rasterise(icon, 180), path.join(assets, 'icon-180.png')]);
-await writeFile(path.join(root, 'src', 'favicon.ico'), wrapIco(await readFile(await rasterise(icon, 32)), 32));
+await writeFile(path.join(assets, 'icon-180.png'), await rasteriseClean(icon, 180));
+await writeFile(path.join(root, 'src', 'favicon.ico'), wrapIco(await rasteriseClean(icon, 32), 32));
 
 // Quick Look pads to a square canvas, so crop the 1200x1200 render back to the
-// 1200x630 the Open Graph spec expects.
+// 1200x630 the Open Graph spec expects. sips only works on a file, and it is
+// what adds the stale XMP, so the strip has to happen after the crop.
 const og = path.join(assets, 'og.png');
 await exec('cp', [await rasterise(path.join(here, 'og.svg'), 1200), og]);
 await exec('sips', ['-c', '630', '1200', og]);
+await writeFile(og, stripPng(await readFile(og)));
 
 await rm(work, { recursive: true, force: true });
 console.log('Regenerated favicon.ico, icon-180.png, og.png');

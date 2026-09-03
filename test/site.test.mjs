@@ -80,6 +80,26 @@ test('every page declares locally hosted icons', async () => {
   }
 });
 
+// The raster assets are produced by Quick Look and sips, both of which attach
+// EXIF and XMP. Nothing sensitive appeared in it, but "nothing sensitive" is a
+// property of the current toolchain, not a guarantee, so assert the absence
+// rather than re-inspecting by hand after every regeneration.
+test('raster assets ship pixels and nothing else', async () => {
+  const carriesPixels = new Set(['IHDR', 'PLTE', 'tRNS', 'sRGB', 'IDAT', 'IEND']);
+  for (const asset of ['assets/icon-180.png', 'assets/og.png', 'favicon.ico']) {
+    const bytes = await readFile(path.join(dist, asset));
+    let at = bytes.indexOf(Buffer.from('\x89PNG', 'latin1')) + 8;
+    assert.ok(at > 7, `${asset} has no PNG payload`);
+    while (at < bytes.length) {
+      const length = bytes.readUInt32BE(at);
+      const type = bytes.toString('latin1', at + 4, at + 8);
+      assert.ok(carriesPixels.has(type), `${asset} carries a ${type} chunk`);
+      at += 12 + length;
+      if (type === 'IEND') break;
+    }
+  }
+});
+
 test('security headers prohibit telemetry connections', async () => {
   const headers = await readFile(path.join(dist, '_headers'), 'utf8');
   assert.match(headers, /connect-src 'none'/);
