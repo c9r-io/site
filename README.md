@@ -36,6 +36,7 @@ Pages project `c9r-site` behind the `website-production` environment.
 | Host | Project | Pages project | State |
 | --- | --- | --- | --- |
 | `c9r.io` | this entry page | `c9r-site` | active |
+| `www.c9r.io` | 301 to the apex | — | active |
 | `deck.c9r.io` | [deck](https://github.com/c9r-io/deck) | `deck-site` | active |
 | `docs.c9r.io` | [orchestrator](https://github.com/c9r-io/orchestrator) | `orchestrator-docs` | frozen, read-only |
 
@@ -43,3 +44,33 @@ Pages project `c9r-site` behind the `website-production` environment.
 archived, so its `Docs` workflow can no longer run and the last build is final;
 the host stays up because the archived README, the changelog and outside links
 still point at it.
+
+## Zone state this site depends on
+
+Two zone-level rules are load-bearing. Neither lives in this repository, so
+they are recorded here; the account id and owner are not, because this file is
+public and deck learned that the hard way.
+
+- Configuration Rule `c9r.io — no Web Analytics RUM injection`, matching
+  `http.host eq "c9r.io" or http.host eq "www.c9r.io"`, disables RUM. The zone
+  has an account-level Web Analytics site configured on the apex with automatic
+  injection, created years ago for the orchestrator docs. Without this rule
+  Cloudflare injects `static.cloudflareinsights.com/beacon.min.js` into these
+  responses the moment the hostname goes live, and the footer's "requests
+  nothing from a third party" becomes false. deck carries the same rule for its
+  own hostname; `docs.c9r.io` still serves its beacon, which is why the rule is
+  scoped rather than zone-wide.
+- Redirect Rule `www.c9r.io → c9r.io`, a 301 preserving path and query, so the
+  two hostnames do not serve the same page. `rel=canonical` points at the apex
+  independently.
+
+Both hostnames are Pages custom domains on `c9r-site`; Cloudflare created the
+`CNAME @` and `CNAME www` records when they were attached.
+
+Verify after any change, with a browser `Accept` and `User-Agent` — Cloudflare
+only injects for browser-shaped requests, and a passing CSP is not evidence:
+
+```sh
+curl -s -H 'Accept: text/html' -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)' \
+  https://c9r.io/ | grep -c '<script'   # expect 0
+```
