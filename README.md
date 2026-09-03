@@ -40,10 +40,16 @@ Pages project `c9r-site` behind the `website-production` environment.
 | `deck.c9r.io` | [deck](https://github.com/c9r-io/deck) | `deck-site` | active |
 | `docs.c9r.io` | [orchestrator](https://github.com/c9r-io/orchestrator) | `orchestrator-docs` | frozen, read-only |
 
-`docs.c9r.io` is kept online deliberately. The orchestrator repository is
-archived, so its `Docs` workflow can no longer run and the last build is final;
-the host stays up because the archived README, the changelog and outside links
-still point at it.
+`docs.c9r.io` is kept online deliberately: the archived README, the changelog
+and outside links still point at it, and an archived repository's README cannot
+be edited to say otherwise.
+
+Its content is final, but not because archiving disables CI — it does not.
+Archiving blocks pushes and pull requests; Actions stays enabled and scheduled
+workflows keep firing. The `Docs` workflow simply has nothing left to trigger
+it: it runs on `push` to `main`, which archiving does block, and on
+`workflow_dispatch`. Its Cloudflare token has since been deleted, so a manual
+dispatch would fail at the deploy step rather than republish.
 
 ## Zone state this site depends on
 
