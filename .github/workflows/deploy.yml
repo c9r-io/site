@@ -1,0 +1,35 @@
+name: deploy
+
+# Manual only, behind a reviewed environment: the portal is the first thing
+# anyone sees, so no push should be able to change it unattended.
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type deploy-c9r.io after reviewing the local build'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: inputs.confirmation == 'deploy-c9r.io'
+    runs-on: ubuntu-latest
+    environment: website-production
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Test and build static site
+        run: |
+          npm test
+          npm run build
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=c9r-site --branch=main

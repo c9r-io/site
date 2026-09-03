@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>c9r — Agent-first software delivery</title>
+  <meta name="description" content="Tools and experiments for building software where agents do the work: deck, a macOS command center for CLI agent sessions, and auth9, an AI-native identity platform.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icon-180.png">
+  <link rel="canonical" href="{{SITE_URL}}/">
+  <link rel="alternate" hreflang="en" href="{{SITE_URL}}/">
+  <link rel="alternate" hreflang="zh-Hans" href="{{SITE_URL}}/zh/">
+  <link rel="alternate" hreflang="x-default" href="{{SITE_URL}}/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="c9r">
+  <meta property="og:title" content="c9r — Agent-first software delivery">
+  <meta property="og:description" content="Tools and experiments for building software where agents do the work.">
+  <meta property="og:url" content="{{SITE_URL}}/">
+  <meta property="og:image" content="{{SITE_URL}}/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The c9r mark beside the wordmark c9r.io and the line Agent-first software delivery">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="c9r — Agent-first software delivery">
+  <meta name="twitter:description" content="Tools and experiments for building software where agents do the work.">
+  <meta name="twitter:image" content="{{SITE_URL}}/assets/og.png">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="shell nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="c9r home"><img src="/assets/icon.svg" alt="" width="28" height="28"><span>c9r</span></a>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#approach">Approach</a>
+        <a class="language-link" href="/zh/" lang="zh-Hans">中文</a>
+        <a href="{{GITHUB_URL}}">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell">
+      <p class="eyebrow">c9r.io</p>
+      <h1>Agent-first software delivery</h1>
+      <p class="lead">
+        Tools and experiments for building software where coding agents do the work — and
+        where verification runs fast enough to keep up with them.
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="#projects">Browse projects</a>
+        <a class="button" href="{{GITHUB_URL}}">GitHub organisation</a>
+      </div>
+    </section>
+
+    <section id="projects" class="shell">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Three attempts at the same question, from three directions.</p>
+      </div>
+      <div class="projects">
+
+        <article class="project">
+          <div class="project-head">
+            <h3>deck</h3>
+            <span class="role">macOS command center</span>
+            <span class="status is-active">Active</span>
+          </div>
+          <p>
+            A native macOS app that keeps every persistent CLI agent session on one board —
+            active, quiet, and stopped at a glance. Sessions outlive the app, stay on your
+            machine, and work with any command-line agent.
+          </p>
+          <div class="project-links">
+            <a class="button primary" href="{{DECK_URL}}">deck.c9r.io</a>
+            <a class="button" href="{{DECK_REPO_URL}}">Source</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>auth9</h3>
+            <span class="role">Identity platform &amp; SDLC experiment</span>
+            <span class="status is-active">Active</span>
+          </div>
+          <p>
+            A self-hosted identity and access management platform — multi-tenant isolation,
+            OIDC and OAuth2, token exchange, hierarchical RBAC — written almost entirely by
+            agents. It exists to test whether an AI-native development lifecycle can polish
+            software the way people do, on a problem where a wrong decision cascades.
+          </p>
+          <div class="project-links">
+            <a class="button primary" href="{{AUTH9_REPO_URL}}">Source &amp; writeup</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>orchestrator</h3>
+            <span class="role">Control plane</span>
+            <span class="status">Archived</span>
+          </div>
+          <p>
+            A control plane that drove Claude Code, Codex, OpenCode and shell-native agents
+            from declarative workflows. Development has stopped and the repository is
+            archived; the documentation stays online, read-only, for anyone still reading
+            the code.
+          </p>
+          <div class="project-links">
+            <a class="button" href="{{ORCHESTRATOR_DOCS_URL}}">Archived docs</a>
+            <a class="button" href="{{ORCHESTRATOR_REPO_URL}}">Source</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="approach" class="shell">
+      <div class="section-head">
+        <h2>Approach</h2>
+        <p>What the projects have in common, stated plainly enough to be wrong.</p>
+      </div>
+      <div class="notes">
+        <article class="note">
+          <h3>Agents do the work</h3>
+          <p>
+            Not autocomplete around a human author — agents carry the task from plan to
+            patch. The interesting engineering is in what surrounds them.
+          </p>
+        </article>
+        <article class="note">
+          <h3>Verification sets the pace</h3>
+          <p>
+            Writing code was never the bottleneck; knowing it is correct is. Generation that
+            outruns verification just builds a bigger queue of unreviewed work.
+          </p>
+        </article>
+        <article class="note">
+          <h3>Local by default</h3>
+          <p>
+            Sessions, state and source stay on the machine that produced them. Nothing here
+            needs an account to be useful.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-row">
+        <a class="brand" href="/" aria-label="c9r home"><img src="/assets/icon.svg" alt="" width="28" height="28"><span>c9r</span></a>
+        <a href="{{GITHUB_URL}}">GitHub</a>
+        <a href="{{DECK_URL}}">deck</a>
+        <a href="/zh/" lang="zh-Hans">中文</a>
+      </div>
+      <p class="footer-note">
+        This page loads no scripts, sets no cookies, and requests nothing from a third
+        party. Each project states its own data handling on its own site or repository.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

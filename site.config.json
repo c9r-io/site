@@ -1,0 +1,9 @@
+{
+  "siteUrl": "https://c9r.io",
+  "githubUrl": "https://github.com/c9r-io",
+  "deckUrl": "https://deck.c9r.io",
+  "deckRepoUrl": "https://github.com/c9r-io/deck",
+  "auth9RepoUrl": "https://github.com/c9r-io/auth9",
+  "orchestratorDocsUrl": "https://docs.c9r.io",
+  "orchestratorRepoUrl": "https://github.com/c9r-io/orchestrator"
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <!-- Square canvas because Quick Look pads any render to a square; the real
+       1200x630 design sits in the middle band and make-icons.mjs crops to it. -->
+  <defs>
+    <radialGradient id="glow" cx="78%" cy="8%" r="62%">
+      <stop offset="0%" stop-color="#8b9dff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#8b9dff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="#0d1117"/>
+  <g transform="translate(0 285)">
+    <rect width="1200" height="630" fill="url(#glow)"/>
+    <g transform="translate(96 128)">
+      <path d="M104 26.6a56 56 0 1 0 0 62.8" fill="none" stroke="#8b9dff" stroke-width="19" stroke-linecap="round"/>
+      <circle cx="58" cy="58" r="14.8" fill="#8b9dff"/>
+    </g>
+    <text x="96" y="370" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="94" font-weight="700" fill="#e7edf5" letter-spacing="2">c9r.io</text>
+    <text x="96" y="436" font-family="Inter, -apple-system, Helvetica, sans-serif" font-size="37" fill="#9aa8b8">Agent-first software delivery</text>
+    <rect x="96" y="484" width="120" height="4" rx="2" fill="#8b9dff"/>
+    <text x="96" y="546" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="26" fill="#718096">deck · auth9 · orchestrator</text>
+  </g>
+</svg>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>c9r — Agent 优先的软件交付</title>
+  <meta name="description" content="围绕「让 agent 干活」构建软件的工具与实验：deck，管理 CLI agent 会话的 macOS 控制台；auth9，由 agent 写成的身份认证平台。">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icon-180.png">
+  <link rel="canonical" href="{{SITE_URL}}/zh/">
+  <link rel="alternate" hreflang="en" href="{{SITE_URL}}/">
+  <link rel="alternate" hreflang="zh-Hans" href="{{SITE_URL}}/zh/">
+  <link rel="alternate" hreflang="x-default" href="{{SITE_URL}}/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="c9r">
+  <meta property="og:title" content="c9r — Agent 优先的软件交付">
+  <meta property="og:description" content="围绕「让 agent 干活」构建软件的工具与实验。">
+  <meta property="og:url" content="{{SITE_URL}}/zh/">
+  <meta property="og:image" content="{{SITE_URL}}/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="c9r 标记、字标 c9r.io 与 Agent-first software delivery 一行说明">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="c9r — Agent 优先的软件交付">
+  <meta name="twitter:description" content="围绕「让 agent 干活」构建软件的工具与实验。">
+  <meta name="twitter:image" content="{{SITE_URL}}/assets/og.png">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <nav class="shell nav" aria-label="主导航">
+      <a class="brand" href="/zh/" aria-label="c9r 首页"><img src="/assets/icon.svg" alt="" width="28" height="28"><span>c9r</span></a>
+      <div class="nav-links">
+        <a href="#projects">项目</a>
+        <a href="#approach">思路</a>
+        <a class="language-link" href="/" lang="en">English</a>
+        <a href="{{GITHUB_URL}}">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell">
+      <p class="eyebrow">c9r.io</p>
+      <h1>Agent 优先的软件交付</h1>
+      <p class="lead">
+        围绕一个前提构建工具与实验：写代码的是 agent，而验证要快到追得上它们的速度。
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="#projects">查看项目</a>
+        <a class="button" href="{{GITHUB_URL}}">GitHub 组织</a>
+      </div>
+    </section>
+
+    <section id="projects" class="shell">
+      <div class="section-head">
+        <h2>项目</h2>
+        <p>同一个问题，从三个方向各试一次。</p>
+      </div>
+      <div class="projects">
+
+        <article class="project">
+          <div class="project-head">
+            <h3>deck</h3>
+            <span class="role">macOS 会话控制台</span>
+            <span class="status is-active">开发中</span>
+          </div>
+          <p>
+            一个原生 macOS 应用，把所有常驻的 CLI agent 会话放进同一块面板 —— 活跃、安静、
+            已停止一眼可辨。会话的生命周期长于应用本身，数据留在本机，且不挑具体是哪个命令行 agent。
+          </p>
+          <div class="project-links">
+            <a class="button primary" href="{{DECK_URL}}">deck.c9r.io</a>
+            <a class="button" href="{{DECK_REPO_URL}}">源码</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>auth9</h3>
+            <span class="role">身份平台与 SDLC 实验</span>
+            <span class="status is-active">开发中</span>
+          </div>
+          <p>
+            一个可自托管的身份与访问管理平台 —— 多租户隔离、OIDC 与 OAuth2、Token Exchange、
+            分层 RBAC —— 几乎全部由 agent 写成。它存在的目的，是在一个「一步错、十步歪」的问题上，
+            检验 AI 原生的开发流程能否像人一样把软件打磨到位。
+          </p>
+          <div class="project-links">
+            <a class="button primary" href="{{AUTH9_REPO_URL}}">源码与说明</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>orchestrator</h3>
+            <span class="role">控制平面</span>
+            <span class="status">已归档</span>
+          </div>
+          <p>
+            一个用声明式工作流驱动 Claude Code、Codex、OpenCode 及各类 shell agent 的控制平面。
+            开发已停止，仓库已归档；文档站保持在线、只读，供仍在读这份代码的人查阅。
+          </p>
+          <div class="project-links">
+            <a class="button" href="{{ORCHESTRATOR_DOCS_URL}}">归档文档</a>
+            <a class="button" href="{{ORCHESTRATOR_REPO_URL}}">源码</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="approach" class="shell">
+      <div class="section-head">
+        <h2>思路</h2>
+        <p>这几个项目共通的地方，说得足够直白，好让它有被证伪的余地。</p>
+      </div>
+      <div class="notes">
+        <article class="note">
+          <h3>让 agent 干活</h3>
+          <p>
+            不是在人类作者旁边做补全 —— agent 从计划一路做到补丁。真正需要工程的，是它周围的那一圈东西。
+          </p>
+        </article>
+        <article class="note">
+          <h3>验证决定节奏</h3>
+          <p>
+            写代码从来不是瓶颈，知道代码对不对才是。生成速度一旦超过验证速度，多出来的只是一堆没人看过的改动。
+          </p>
+        </article>
+        <article class="note">
+          <h3>默认留在本机</h3>
+          <p>
+            会话、状态和源码都留在产生它们的那台机器上。这里没有哪样东西是要先注册账号才好用的。
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-row">
+        <a class="brand" href="/zh/" aria-label="c9r 首页"><img src="/assets/icon.svg" alt="" width="28" height="28"><span>c9r</span></a>
+        <a href="{{GITHUB_URL}}">GitHub</a>
+        <a href="{{DECK_URL}}">deck</a>
+        <a href="/" lang="en">English</a>
+      </div>
+      <p class="footer-note">
+        本页不加载脚本、不设置 Cookie、不向任何第三方发起请求。各项目的数据处理方式，由各自的站点或仓库分别说明。
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
